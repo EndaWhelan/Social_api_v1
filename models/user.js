@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
 const crypto = require('crypto');
+const { ObjectId } = mongoose.Schema
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -23,7 +24,21 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    updated: Date
+    updated: Date,
+    photo: {
+        data: Buffer,
+        contentType: String
+    },
+    about: {
+        type: String,
+        trim: true
+    },
+    following: [{type: ObjectId, ref: "User"}],
+    followers: [{type: ObjectId, ref: "User"}],
+    role: {
+        type: String,
+        default: 'dancer'
+    }
 });
 
 
